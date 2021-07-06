@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WebWinkelIdentity.Data.Enitities
+namespace WebWinkelIdentity.Data.Enitities.ProductEntities
 {
     public class Brand
     {

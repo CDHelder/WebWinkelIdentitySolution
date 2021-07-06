@@ -10,6 +10,7 @@ namespace WebWinkelIdentity.Data.Enitities
         public int Id { get; set; }
         public string CustomerId { get; set; }
         public string SupplierId { get; set; }
+        public string EmployeeId { get; set; }
         public string Streetname { get; set; }
         public int HouseNumber { get; set; }
         public string PostalCode { get; set; }

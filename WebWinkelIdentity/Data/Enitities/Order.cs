@@ -13,6 +13,6 @@ namespace WebWinkelIdentity.Data.Enitities
         public int AddressId { get; set; }
         public Address Address { get; set; }
         public bool IsDelivered { get; set; }
-        public List<CartProduct> CartProducts { get; set; }
+        public List<OrderProduct> OrderProducts { get; set; }
     }
 }

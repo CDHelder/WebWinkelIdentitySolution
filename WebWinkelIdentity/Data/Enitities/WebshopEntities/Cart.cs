@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebWinkelIdentity.Data.Enitities
+namespace WebWinkelIdentity.Data.Enitities.WebshopEntities
 {
     public class Cart
     {
@@ -12,5 +12,6 @@ namespace WebWinkelIdentity.Data.Enitities
         public Customer Customer { get; set; }
         public List<CartProduct> CartProducts { get; set; }
         public decimal TotalPrice { get; set; }
+        public int OrderId { get; set; }
     }
 }
