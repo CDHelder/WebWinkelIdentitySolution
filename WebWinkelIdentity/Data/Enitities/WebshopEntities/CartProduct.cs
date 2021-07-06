@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebWinkelIdentity.Data.Enitities.ProductEntities;
+using WebWinkelIdentity.Data.StoreEntities;
 
 namespace WebWinkelIdentity.Data.Enitities.WebshopEntities
 {

@@ -235,9 +235,6 @@ namespace WebWinkelIdentity.Data.Migrations
                     b.Property<string>("CustomerId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("EmployeeId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("HouseNumber")
                         .HasColumnType("int");
 
@@ -247,16 +244,12 @@ namespace WebWinkelIdentity.Data.Migrations
                     b.Property<string>("Streetname")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SupplierId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("SupplierId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
-
-                    b.HasIndex("EmployeeId")
-                        .IsUnique()
-                        .HasFilter("[EmployeeId] IS NOT NULL");
 
                     b.HasIndex("SupplierId");
 
@@ -271,14 +264,14 @@ namespace WebWinkelIdentity.Data.Migrations
                             HouseNumber = 15,
                             PostalCode = "1264 KJ",
                             Streetname = "Polderweg",
-                            SupplierId = "b7d556f6-a67b-4400-9f8b-2c4caf9122e3"
+                            SupplierId = 1
                         },
                         new
                         {
                             Id = 2,
                             City = "Rotterdam",
                             Country = "Netherlands",
-                            CustomerId = "789934cd-1e93-49a0-aa36-9baa9be02701",
+                            CustomerId = "52a5d716-a649-4476-b316-108d96c56112",
                             HouseNumber = 5,
                             PostalCode = "7431 GG",
                             Streetname = "Sesamstraat"
@@ -333,7 +326,7 @@ namespace WebWinkelIdentity.Data.Migrations
                         {
                             Id = 1,
                             AddressId = 2,
-                            CustomerId = "789934cd-1e93-49a0-aa36-9baa9be02701",
+                            CustomerId = "52a5d716-a649-4476-b316-108d96c56112",
                             IsDelivered = false
                         });
                 });
@@ -354,9 +347,6 @@ namespace WebWinkelIdentity.Data.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId");
@@ -371,32 +361,28 @@ namespace WebWinkelIdentity.Data.Migrations
                             Id = 1,
                             OrderId = 1,
                             ProductId = 1,
-                            Quantity = 1,
-                            TotalPrice = 0m
+                            Quantity = 1
                         },
                         new
                         {
                             Id = 2,
                             OrderId = 1,
                             ProductId = 2,
-                            Quantity = 1,
-                            TotalPrice = 0m
+                            Quantity = 1
                         },
                         new
                         {
                             Id = 3,
                             OrderId = 1,
                             ProductId = 3,
-                            Quantity = 1,
-                            TotalPrice = 0m
+                            Quantity = 1
                         },
                         new
                         {
                             Id = 4,
                             OrderId = 1,
                             ProductId = 4,
-                            Quantity = 1,
-                            TotalPrice = 0m
+                            Quantity = 1
                         });
                 });
 
@@ -413,8 +399,8 @@ namespace WebWinkelIdentity.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SupplierId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("SupplierId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -428,14 +414,14 @@ namespace WebWinkelIdentity.Data.Migrations
                             Id = 1,
                             Description = "Veel te duur",
                             Name = "Gucci",
-                            SupplierId = "b7d556f6-a67b-4400-9f8b-2c4caf9122e3"
+                            SupplierId = 1
                         },
                         new
                         {
                             Id = 2,
                             Description = "Veel te duur",
                             Name = "Versace",
-                            SupplierId = "b7d556f6-a67b-4400-9f8b-2c4caf9122e3"
+                            SupplierId = 1
                         });
                 });
 
@@ -452,9 +438,6 @@ namespace WebWinkelIdentity.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProductCategorySizesId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
@@ -464,99 +447,13 @@ namespace WebWinkelIdentity.Data.Migrations
                         {
                             Id = 1,
                             Description = "Broek met wijde pijpen",
-                            Name = "Broek",
-                            ProductCategorySizesId = 0
+                            Name = "Broek"
                         },
                         new
                         {
                             Id = 2,
                             Description = "T-shirt met korte mouwen",
-                            Name = "T-shirt",
-                            ProductCategorySizesId = 0
-                        });
-                });
-
-            modelBuilder.Entity("WebWinkelIdentity.Data.Enitities.ProductEntities.Product", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BrandId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Color")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Fabric")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("SupplierId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BrandId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("SupplierId");
-
-                    b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BrandId = 1,
-                            CategoryId = 2,
-                            Description = "Witte kleur met gucci logo",
-                            Name = "Gucci T-shirt",
-                            Price = 39.95m,
-                            SupplierId = "b7d556f6-a67b-4400-9f8b-2c4caf9122e3"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BrandId = 1,
-                            CategoryId = 1,
-                            Description = "Lichte broek met gucci logo",
-                            Name = "Gucci Broek",
-                            Price = 59.95m,
-                            SupplierId = "b7d556f6-a67b-4400-9f8b-2c4caf9122e3"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            BrandId = 2,
-                            CategoryId = 2,
-                            Description = "Licht shirt met versace logo",
-                            Name = "Versace T-shirt",
-                            Price = 45.95m,
-                            SupplierId = "b7d556f6-a67b-4400-9f8b-2c4caf9122e3"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            BrandId = 2,
-                            CategoryId = 1,
-                            Description = "Donkere broek met versace logo",
-                            Name = "Versace Broek",
-                            Price = 69.95m,
-                            SupplierId = "b7d556f6-a67b-4400-9f8b-2c4caf9122e3"
+                            Name = "T-shirt"
                         });
                 });
 
@@ -652,7 +549,7 @@ namespace WebWinkelIdentity.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("WebWinkelIdentity.Data.Enitities.StoreEntities.StoreProductDetails", b =>
+            modelBuilder.Entity("WebWinkelIdentity.Data.Enitities.StoreEntities.ProductDetails", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -665,17 +562,22 @@ namespace WebWinkelIdentity.Data.Migrations
                     b.Property<string>("InternationalSizingType")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Size")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StoreProductId")
+                    b.Property<int>("StoreId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StoreProductId");
+                    b.HasIndex("ProductId");
 
-                    b.ToTable("StoreProductDetails");
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("ProductDetails");
 
                     b.HasData(
                         new
@@ -683,128 +585,283 @@ namespace WebWinkelIdentity.Data.Migrations
                             Id = 1,
                             AmountInStock = 2,
                             InternationalSizingType = "EU",
+                            ProductId = 1,
                             Size = "S",
-                            StoreProductId = 1
+                            StoreId = 1
                         },
                         new
                         {
                             Id = 2,
                             AmountInStock = 2,
                             InternationalSizingType = "EU",
+                            ProductId = 1,
                             Size = "M",
-                            StoreProductId = 1
+                            StoreId = 1
                         },
                         new
                         {
                             Id = 3,
                             AmountInStock = 2,
                             InternationalSizingType = "EU",
+                            ProductId = 1,
                             Size = "L",
-                            StoreProductId = 1
+                            StoreId = 1
                         },
                         new
                         {
                             Id = 4,
                             AmountInStock = 1,
                             InternationalSizingType = "EU",
+                            ProductId = 1,
                             Size = "XL",
-                            StoreProductId = 1
+                            StoreId = 1
                         },
                         new
                         {
                             Id = 5,
                             AmountInStock = 2,
                             InternationalSizingType = "EU",
+                            ProductId = 2,
                             Size = "S",
-                            StoreProductId = 2
+                            StoreId = 1
                         },
                         new
                         {
                             Id = 6,
                             AmountInStock = 2,
                             InternationalSizingType = "EU",
+                            ProductId = 2,
                             Size = "M",
-                            StoreProductId = 2
+                            StoreId = 1
                         },
                         new
                         {
                             Id = 7,
                             AmountInStock = 2,
                             InternationalSizingType = "EU",
+                            ProductId = 2,
                             Size = "L",
-                            StoreProductId = 2
+                            StoreId = 1
                         },
                         new
                         {
                             Id = 8,
                             AmountInStock = 1,
                             InternationalSizingType = "EU",
+                            ProductId = 2,
                             Size = "XL",
-                            StoreProductId = 2
+                            StoreId = 1
                         },
                         new
                         {
                             Id = 9,
                             AmountInStock = 2,
                             InternationalSizingType = "EU",
+                            ProductId = 3,
                             Size = "S",
-                            StoreProductId = 3
+                            StoreId = 1
                         },
                         new
                         {
                             Id = 10,
                             AmountInStock = 2,
                             InternationalSizingType = "EU",
+                            ProductId = 3,
                             Size = "M",
-                            StoreProductId = 3
+                            StoreId = 1
                         },
                         new
                         {
                             Id = 11,
                             AmountInStock = 2,
                             InternationalSizingType = "EU",
+                            ProductId = 3,
                             Size = "L",
-                            StoreProductId = 3
+                            StoreId = 1
                         },
                         new
                         {
                             Id = 12,
                             AmountInStock = 1,
                             InternationalSizingType = "EU",
+                            ProductId = 3,
                             Size = "XL",
-                            StoreProductId = 3
+                            StoreId = 1
                         },
                         new
                         {
                             Id = 13,
                             AmountInStock = 2,
                             InternationalSizingType = "EU",
+                            ProductId = 4,
                             Size = "S",
-                            StoreProductId = 4
+                            StoreId = 1
                         },
                         new
                         {
                             Id = 14,
                             AmountInStock = 2,
                             InternationalSizingType = "EU",
+                            ProductId = 4,
                             Size = "M",
-                            StoreProductId = 4
+                            StoreId = 1
                         },
                         new
                         {
                             Id = 15,
                             AmountInStock = 2,
                             InternationalSizingType = "EU",
+                            ProductId = 4,
                             Size = "L",
-                            StoreProductId = 4
+                            StoreId = 1
                         },
                         new
                         {
                             Id = 16,
                             AmountInStock = 1,
                             InternationalSizingType = "EU",
+                            ProductId = 4,
                             Size = "XL",
-                            StoreProductId = 4
+                            StoreId = 1
+                        });
+                });
+
+            modelBuilder.Entity("WebWinkelIdentity.Data.Enitities.StoreEntities.StoreEmployee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("EmployeeId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("StoreId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("StoreEmployees");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            EmployeeId = "7036d951-7cc8-488f-b95b-10c2e96c31c9",
+                            StoreId = 1
+                        });
+                });
+
+            modelBuilder.Entity("WebWinkelIdentity.Data.Enitities.Supplier", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PhoneNumber")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Suppliers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "groothandel merkkleding",
+                            Email = "GroothandelDeBos@gmail.com",
+                            Name = "Kleding Groothandel de Bos",
+                            PhoneNumber = 1012346543
+                        });
+                });
+
+            modelBuilder.Entity("WebWinkelIdentity.Data.StoreEntities.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BrandId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Color")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Fabric")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BrandId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BrandId = 1,
+                            CategoryId = 2,
+                            Description = "Witte kleur met gucci logo",
+                            Name = "Gucci T-shirt",
+                            Price = 39.95m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BrandId = 1,
+                            CategoryId = 1,
+                            Description = "Lichte broek met gucci logo",
+                            Name = "Gucci Broek",
+                            Price = 59.95m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BrandId = 2,
+                            CategoryId = 2,
+                            Description = "Licht shirt met versace logo",
+                            Name = "Versace T-shirt",
+                            Price = 45.95m
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BrandId = 2,
+                            CategoryId = 1,
+                            Description = "Donkere broek met versace logo",
+                            Name = "Versace Broek",
+                            Price = 69.95m
                         });
                 });
 
@@ -840,55 +897,6 @@ namespace WebWinkelIdentity.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("WebWinkelIdentity.Data.StoreEntities.StoreProduct", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StoreId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId")
-                        .IsUnique();
-
-                    b.HasIndex("StoreId");
-
-                    b.ToTable("StoreProducts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ProductId = 1,
-                            StoreId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ProductId = 2,
-                            StoreId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ProductId = 3,
-                            StoreId = 1
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ProductId = 4,
-                            StoreId = 1
-                        });
-                });
-
             modelBuilder.Entity("WebWinkelIdentity.Data.StoreEntities.WeekOpeningTimes", b =>
                 {
                     b.Property<int>("Id")
@@ -919,48 +927,17 @@ namespace WebWinkelIdentity.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "789934cd-1e93-49a0-aa36-9baa9be02701",
+                            Id = "52a5d716-a649-4476-b316-108d96c56112",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "90018819-233a-4479-98c5-68fed61c0a4e",
+                            ConcurrencyStamp = "3f9af281-baa5-47f2-b9fc-be3c8acc7fd5",
                             Email = "Jaap@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7330972f-9dac-4750-b058-3926a69ff149",
+                            SecurityStamp = "27aedd85-bb9f-4e42-86a9-727ee58e0677",
                             TwoFactorEnabled = false,
                             UserName = "Jaap123",
                             Name = "Jaap"
-                        });
-                });
-
-            modelBuilder.Entity("WebWinkelIdentity.Data.Enitities.Supplier", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToTable("Suppliers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "b7d556f6-a67b-4400-9f8b-2c4caf9122e3",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "0e5c033a-60f4-4185-97d9-61cc3ca339b2",
-                            Email = "GroothandelDeBos@gmail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            PhoneNumber = "01012346543",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "2a5f71ce-4bd0-492e-8201-dc1c53befb03",
-                            TwoFactorEnabled = false,
-                            UserName = "Groothandeldebos",
-                            Description = "groothandel merkkleding",
-                            Name = "Kleding Groothandel de Bos"
                         });
                 });
 
@@ -980,29 +957,27 @@ namespace WebWinkelIdentity.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StoreId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("StoreId");
+                    b.HasIndex("AddressId")
+                        .IsUnique()
+                        .HasFilter("[AddressId] IS NOT NULL");
 
                     b.ToTable("Employees");
 
                     b.HasData(
                         new
                         {
-                            Id = "b7d770ce-4f5e-4337-926e-442375b14c70",
+                            Id = "7036d951-7cc8-488f-b95b-10c2e96c31c9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0378988d-105c-4558-93f4-01d344cdc7e0",
+                            ConcurrencyStamp = "5a588f05-5846-4074-bd37-157067e8b38c",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3ba2219e-a34f-4989-830f-7e5aa15321b9",
+                            SecurityStamp = "e944a957-6e08-45db-9b1d-c7781fb6d37f",
                             TwoFactorEnabled = false,
                             AddressId = 3,
                             CurrentlyEmployed = false,
                             IBAN = "NL76 INGB 007 4201 6969",
-                            Name = "Samantha",
-                            StoreId = 1
+                            Name = "Samantha"
                         });
                 });
 
@@ -1063,10 +1038,6 @@ namespace WebWinkelIdentity.Data.Migrations
                         .WithMany("Addresses")
                         .HasForeignKey("CustomerId");
 
-                    b.HasOne("WebWinkelIdentity.Data.Enitities.Users.Employee", null)
-                        .WithOne("Address")
-                        .HasForeignKey("WebWinkelIdentity.Data.Enitities.Address", "EmployeeId");
-
                     b.HasOne("WebWinkelIdentity.Data.Enitities.Supplier", null)
                         .WithMany("Addresses")
                         .HasForeignKey("SupplierId");
@@ -1099,7 +1070,7 @@ namespace WebWinkelIdentity.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebWinkelIdentity.Data.Enitities.ProductEntities.Product", "Product")
+                    b.HasOne("WebWinkelIdentity.Data.StoreEntities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1112,12 +1083,59 @@ namespace WebWinkelIdentity.Data.Migrations
                 {
                     b.HasOne("WebWinkelIdentity.Data.Enitities.Supplier", "Supplier")
                         .WithMany("Brands")
-                        .HasForeignKey("SupplierId");
+                        .HasForeignKey("SupplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Supplier");
                 });
 
-            modelBuilder.Entity("WebWinkelIdentity.Data.Enitities.ProductEntities.Product", b =>
+            modelBuilder.Entity("WebWinkelIdentity.Data.Enitities.StoreEntities.DayOpeningTime", b =>
+                {
+                    b.HasOne("WebWinkelIdentity.Data.StoreEntities.WeekOpeningTimes", null)
+                        .WithMany("DayOpeningTimes")
+                        .HasForeignKey("WeekOpeningTimesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("WebWinkelIdentity.Data.Enitities.StoreEntities.ProductDetails", b =>
+                {
+                    b.HasOne("WebWinkelIdentity.Data.StoreEntities.Product", "Product")
+                        .WithMany("ProductDetails")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebWinkelIdentity.Data.StoreEntities.Store", "Store")
+                        .WithMany("ProductsDetails")
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Store");
+                });
+
+            modelBuilder.Entity("WebWinkelIdentity.Data.Enitities.StoreEntities.StoreEmployee", b =>
+                {
+                    b.HasOne("WebWinkelIdentity.Data.Enitities.Users.Employee", "Employee")
+                        .WithMany("EmployeeStores")
+                        .HasForeignKey("EmployeeId");
+
+                    b.HasOne("WebWinkelIdentity.Data.StoreEntities.Store", "Store")
+                        .WithMany("StoreEmployees")
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("Store");
+                });
+
+            modelBuilder.Entity("WebWinkelIdentity.Data.StoreEntities.Product", b =>
                 {
                     b.HasOne("WebWinkelIdentity.Data.Enitities.ProductEntities.Brand", "Brand")
                         .WithMany("Products")
@@ -1131,31 +1149,9 @@ namespace WebWinkelIdentity.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebWinkelIdentity.Data.Enitities.Supplier", null)
-                        .WithMany("Products")
-                        .HasForeignKey("SupplierId");
-
                     b.Navigation("Brand");
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("WebWinkelIdentity.Data.Enitities.StoreEntities.DayOpeningTime", b =>
-                {
-                    b.HasOne("WebWinkelIdentity.Data.StoreEntities.WeekOpeningTimes", null)
-                        .WithMany("DayOpeningTimes")
-                        .HasForeignKey("WeekOpeningTimesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("WebWinkelIdentity.Data.Enitities.StoreEntities.StoreProductDetails", b =>
-                {
-                    b.HasOne("WebWinkelIdentity.Data.StoreEntities.StoreProduct", null)
-                        .WithMany("StoreProductDetails")
-                        .HasForeignKey("StoreProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("WebWinkelIdentity.Data.StoreEntities.Store", b =>
@@ -1177,25 +1173,6 @@ namespace WebWinkelIdentity.Data.Migrations
                     b.Navigation("WeekOpeningTimes");
                 });
 
-            modelBuilder.Entity("WebWinkelIdentity.Data.StoreEntities.StoreProduct", b =>
-                {
-                    b.HasOne("WebWinkelIdentity.Data.Enitities.ProductEntities.Product", "Product")
-                        .WithOne()
-                        .HasForeignKey("WebWinkelIdentity.Data.StoreEntities.StoreProduct", "ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebWinkelIdentity.Data.StoreEntities.Store", "Store")
-                        .WithMany("StoreProducts")
-                        .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-
-                    b.Navigation("Store");
-                });
-
             modelBuilder.Entity("WebWinkelIdentity.Data.Enitities.Customer", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
@@ -1205,28 +1182,21 @@ namespace WebWinkelIdentity.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WebWinkelIdentity.Data.Enitities.Supplier", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
-                        .WithOne()
-                        .HasForeignKey("WebWinkelIdentity.Data.Enitities.Supplier", "Id")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("WebWinkelIdentity.Data.Enitities.Users.Employee", b =>
                 {
+                    b.HasOne("WebWinkelIdentity.Data.Enitities.Address", "Address")
+                        .WithOne()
+                        .HasForeignKey("WebWinkelIdentity.Data.Enitities.Users.Employee", "AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithOne()
                         .HasForeignKey("WebWinkelIdentity.Data.Enitities.Users.Employee", "Id")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
-                    b.HasOne("WebWinkelIdentity.Data.StoreEntities.Store", null)
-                        .WithMany("Employees")
-                        .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("WebWinkelIdentity.Data.Enitities.Order", b =>
@@ -1244,16 +1214,23 @@ namespace WebWinkelIdentity.Data.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("WebWinkelIdentity.Data.StoreEntities.Store", b =>
+            modelBuilder.Entity("WebWinkelIdentity.Data.Enitities.Supplier", b =>
                 {
-                    b.Navigation("Employees");
+                    b.Navigation("Addresses");
 
-                    b.Navigation("StoreProducts");
+                    b.Navigation("Brands");
                 });
 
-            modelBuilder.Entity("WebWinkelIdentity.Data.StoreEntities.StoreProduct", b =>
+            modelBuilder.Entity("WebWinkelIdentity.Data.StoreEntities.Product", b =>
                 {
-                    b.Navigation("StoreProductDetails");
+                    b.Navigation("ProductDetails");
+                });
+
+            modelBuilder.Entity("WebWinkelIdentity.Data.StoreEntities.Store", b =>
+                {
+                    b.Navigation("ProductsDetails");
+
+                    b.Navigation("StoreEmployees");
                 });
 
             modelBuilder.Entity("WebWinkelIdentity.Data.StoreEntities.WeekOpeningTimes", b =>
@@ -1268,18 +1245,9 @@ namespace WebWinkelIdentity.Data.Migrations
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("WebWinkelIdentity.Data.Enitities.Supplier", b =>
-                {
-                    b.Navigation("Addresses");
-
-                    b.Navigation("Brands");
-
-                    b.Navigation("Products");
-                });
-
             modelBuilder.Entity("WebWinkelIdentity.Data.Enitities.Users.Employee", b =>
                 {
-                    b.Navigation("Address");
+                    b.Navigation("EmployeeStores");
                 });
 #pragma warning restore 612, 618
         }

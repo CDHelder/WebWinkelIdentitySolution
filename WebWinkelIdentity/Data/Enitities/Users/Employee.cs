@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebWinkelIdentity.Data.Enitities.StoreEntities;
 
 namespace WebWinkelIdentity.Data.Enitities.Users
 {
@@ -13,6 +14,6 @@ namespace WebWinkelIdentity.Data.Enitities.Users
         public Address Address { get; set; }
         public string IBAN { get; set; }
         public bool CurrentlyEmployed { get; set; }
-        public int StoreId { get; set; }
+        public List<StoreEmployee> EmployeeStores { get; set; }
     }
 }

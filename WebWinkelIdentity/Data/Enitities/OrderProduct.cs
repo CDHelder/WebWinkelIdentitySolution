@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebWinkelIdentity.Data.Enitities.ProductEntities;
+using WebWinkelIdentity.Data.StoreEntities;
 
 namespace WebWinkelIdentity.Data.Enitities
 {
@@ -12,7 +13,6 @@ namespace WebWinkelIdentity.Data.Enitities
         public int ProductId { get; set; }
         public Product Product { get; set; }
         public int Quantity { get; set; }
-        public decimal TotalPrice { get; set; }
         public int OrderId { get; set; }
     }
 }
