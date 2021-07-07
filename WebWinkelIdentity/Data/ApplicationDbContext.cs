@@ -17,7 +17,7 @@ namespace WebWinkelIdentity.Data
         //Store dbsets
         public DbSet<WeekOpeningTimes> WeekOpeningTimes { get; set; }
         public DbSet<Store> Stores { get; set; }
-        public DbSet<Product> StoreProducts { get; set; }
+        public DbSet<StoreProduct> StoreProducts { get; set; }
 
         //Products dbsets
         public DbSet<ProductDetails> ProductDetails { get; set; }
@@ -58,8 +58,8 @@ namespace WebWinkelIdentity.Data
 
             //builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
-            var customer1Id = Guid.NewGuid().ToString();
-            var employee1Id = Guid.NewGuid().ToString();
+            var customer1Id = "52a5d716-a649-4476-b316-108d96c56112";
+            var employee1Id = "7036d951-7cc8-488f-b95b-10c2e96c31c9";
             var supplier1Id = 1;
 
             var addresses = new List<Address>
@@ -128,38 +128,45 @@ namespace WebWinkelIdentity.Data
 
             var stores = new List<Store>
             {
-            new Store { Id = 1, AddressId = 4, WeekOpeningTimesId = 1, }
+            new Store { Id = 1, AddressId = 4, WeekOpeningTimesId = 1 }
             };
             var storeemployees = new List<StoreEmployee>
             {
                 new StoreEmployee{ Id = 1, EmployeeId = employee1Id, StoreId = 1  }
             };
+            var storeproducts = new List<StoreProduct>
+            { 
+                new StoreProduct { StoreId = 1, ProductId = 1 },
+                new StoreProduct { StoreId = 1, ProductId = 2 },
+                new StoreProduct { StoreId = 1, ProductId = 3 },
+                new StoreProduct { StoreId = 1, ProductId = 4 }
+            };
 
             var products = new List<Product>
             {
-            new Product { Id = 1, Name = "Gucci T-shirt", Price = 39.95M, Description = "Witte kleur met gucci logo", BrandId = 1, CategoryId = 2, },
+            new Product { Id = 1, Name = "Gucci T-shirt", Price = 39.95M, Description = "Witte kleur met gucci logo", BrandId = 1, CategoryId = 2 },
             new Product { Id = 2, Name = "Gucci Broek", Price = 59.95M, Description = "Lichte broek met gucci logo", BrandId = 1, CategoryId = 1, },
             new Product { Id = 3, Name = "Versace T-shirt", Price = 45.95M, Description = "Licht shirt met versace logo", BrandId = 2, CategoryId = 2, },
             new Product { Id = 4, Name = "Versace Broek", Price = 69.95M, Description = "Donkere broek met versace logo", BrandId = 2, CategoryId = 1, }
             };
             var productdetails = new List<ProductDetails>
             {
-            new ProductDetails { Id = 1, InternationalSizingType = "EU", Size = "S", AmountInStock = 2, ProductId = 1, StoreId = 1},
-            new ProductDetails { Id = 2, InternationalSizingType = "EU", Size = "M", AmountInStock = 2, ProductId = 1, StoreId = 1},
-            new ProductDetails { Id = 3, InternationalSizingType = "EU", Size = "L", AmountInStock = 2, ProductId = 1, StoreId = 1},
-            new ProductDetails { Id = 4, InternationalSizingType = "EU", Size = "XL", AmountInStock = 1, ProductId = 1, StoreId = 1},
-            new ProductDetails { Id = 5, InternationalSizingType = "EU", Size = "S", AmountInStock = 2, ProductId = 2, StoreId = 1},
-            new ProductDetails { Id = 6, InternationalSizingType = "EU", Size = "M", AmountInStock = 2, ProductId = 2, StoreId = 1},
-            new ProductDetails { Id = 7, InternationalSizingType = "EU", Size = "L", AmountInStock = 2, ProductId = 2, StoreId = 1},
-            new ProductDetails { Id = 8, InternationalSizingType = "EU", Size = "XL", AmountInStock = 1, ProductId = 2, StoreId = 1},
-            new ProductDetails { Id = 9, InternationalSizingType = "EU", Size = "S", AmountInStock = 2, ProductId = 3, StoreId = 1},
-            new ProductDetails { Id = 10, InternationalSizingType = "EU", Size = "M", AmountInStock = 2, ProductId = 3, StoreId = 1},
-            new ProductDetails { Id = 11, InternationalSizingType = "EU", Size = "L", AmountInStock = 2, ProductId = 3, StoreId = 1},
-            new ProductDetails { Id = 12, InternationalSizingType = "EU", Size = "XL", AmountInStock = 1, ProductId = 3, StoreId = 1},
-            new ProductDetails { Id = 13, InternationalSizingType = "EU", Size = "S", AmountInStock = 2, ProductId = 4, StoreId = 1},
-            new ProductDetails { Id = 14, InternationalSizingType = "EU", Size = "M", AmountInStock = 2, ProductId = 4, StoreId = 1},
-            new ProductDetails { Id = 15, InternationalSizingType = "EU", Size = "L", AmountInStock = 2, ProductId = 4, StoreId = 1},
-            new ProductDetails { Id = 16, InternationalSizingType = "EU", Size = "XL", AmountInStock = 1, ProductId = 4, StoreId = 1}
+            new ProductDetails { Id = 1, InternationalSizingType = "EU", Size = "S", AmountInStock = 2, ProductId = 1,},
+            new ProductDetails { Id = 2, InternationalSizingType = "EU", Size = "M", AmountInStock = 2, ProductId = 1,},
+            new ProductDetails { Id = 3, InternationalSizingType = "EU", Size = "L", AmountInStock = 2, ProductId = 1,},
+            new ProductDetails { Id = 4, InternationalSizingType = "EU", Size = "XL", AmountInStock = 1, ProductId = 1,},
+            new ProductDetails { Id = 5, InternationalSizingType = "EU", Size = "S", AmountInStock = 2, ProductId = 2,},
+            new ProductDetails { Id = 6, InternationalSizingType = "EU", Size = "M", AmountInStock = 2, ProductId = 2,},
+            new ProductDetails { Id = 7, InternationalSizingType = "EU", Size = "L", AmountInStock = 2, ProductId = 2, },
+            new ProductDetails { Id = 8, InternationalSizingType = "EU", Size = "XL", AmountInStock = 1, ProductId = 2,},
+            new ProductDetails { Id = 9, InternationalSizingType = "EU", Size = "S", AmountInStock = 2, ProductId = 3,},
+            new ProductDetails { Id = 10, InternationalSizingType = "EU", Size = "M", AmountInStock = 2, ProductId = 3,},
+            new ProductDetails { Id = 11, InternationalSizingType = "EU", Size = "L", AmountInStock = 2, ProductId = 3,},
+            new ProductDetails { Id = 12, InternationalSizingType = "EU", Size = "XL", AmountInStock = 1, ProductId = 3,},
+            new ProductDetails { Id = 13, InternationalSizingType = "EU", Size = "S", AmountInStock = 2, ProductId = 4,},
+            new ProductDetails { Id = 14, InternationalSizingType = "EU", Size = "M", AmountInStock = 2, ProductId = 4,},
+            new ProductDetails { Id = 15, InternationalSizingType = "EU", Size = "L", AmountInStock = 2, ProductId = 4,},
+            new ProductDetails { Id = 16, InternationalSizingType = "EU", Size = "XL", AmountInStock = 1, ProductId = 4,}
             };
 
             var timespan9 = new TimeSpan(9, 0, 0);
@@ -180,7 +187,7 @@ namespace WebWinkelIdentity.Data
             };
 
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            //TODO: ~BIG~ Refactor code per entity
+            //TODO: ~Extra~ Refactor code per entity
 
             builder.Entity<Store>(s =>
             {
@@ -188,7 +195,6 @@ namespace WebWinkelIdentity.Data
                 s.HasData(stores);
                 s.HasOne(u => u.Address).WithOne().HasForeignKey<Store>(s => s.AddressId);
                 s.HasMany(u => u.StoreEmployees).WithOne(se => se.Store).HasForeignKey(se => se.StoreId);
-                s.HasMany(u => u.ProductsDetails).WithOne(ps => ps.Store).HasForeignKey(ps => ps.StoreId);
                 s.HasOne(u => u.WeekOpeningTimes).WithOne().HasForeignKey<Store>(s => s.WeekOpeningTimesId);
             });
 
@@ -200,6 +206,15 @@ namespace WebWinkelIdentity.Data
                 //.HasForeignKey(pd => pd.ProductId);
                 ps.HasOne(u => u.Brand).WithMany(b => b.Products).HasForeignKey(p => p.BrandId);
                 ps.HasOne(u => u.Category).WithMany(c => c.Products).HasForeignKey(p => p.CategoryId);
+            });
+
+            builder.Entity<StoreProduct>(sp => 
+            {
+                sp.ToTable("StoreProducts");
+                sp.HasData(storeproducts);
+                sp.HasKey(sp => new { sp.ProductId, sp.StoreId });
+                sp.HasOne(sp => sp.Store).WithMany(s => s.StoreProducts).HasForeignKey(sp => sp.StoreId);
+                sp.HasOne(sp => sp.Product).WithMany(s => s.StoreProducts).HasForeignKey(sp => sp.ProductId);
             });
 
             builder.Entity<ProductDetails>(ps =>
@@ -288,7 +303,7 @@ namespace WebWinkelIdentity.Data
                 c.HasMany(c => c.Products).WithOne(p => p.Category).HasForeignKey(p => p.CategoryId);
             });
 
-            //TODO: Implement ShoppingCart
+            //TODO: ~WebWinkel~ Implement ShoppingCart
         }
     }
 }

@@ -14,7 +14,7 @@ namespace WebWinkelIdentity.Data.StoreEntities
         public int AddressId { get; set; }
         public Address Address { get; set; }
         public List<StoreEmployee> StoreEmployees { get; set; }
-        public List<ProductDetails> ProductsDetails { get; set; }
+        public List<StoreProduct> StoreProducts { get; set; }
         public int WeekOpeningTimesId { get; set; }
         public WeekOpeningTimes WeekOpeningTimes { get; set; }
     }

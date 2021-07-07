@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebWinkelIdentity.Data;
+using WebWinkelIdentity.Data.Repositories;
+using WebWinkelIdentity.Data.Repositories.Interfaces;
 
 namespace WebWinkelIdentity
 {
@@ -36,6 +38,8 @@ namespace WebWinkelIdentity
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddControllersWithViews();
+
+            services.AddScoped<IProductRepository, ProductRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

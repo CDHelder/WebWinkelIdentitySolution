@@ -8,7 +8,6 @@ using WebWinkelIdentity.Data.Enitities.StoreEntities;
 
 namespace WebWinkelIdentity.Data.StoreEntities
 {
-    //TODO: Change StoreProduct to Product
     public class Product
     {
         public int Id { get; set; }
@@ -22,5 +21,6 @@ namespace WebWinkelIdentity.Data.StoreEntities
         public Category Category { get; set; }
         public string Description { get; set; }
         public List<ProductDetails> ProductDetails { get; set; }
+        public List<StoreProduct> StoreProducts { get; set; }
     }
 }
