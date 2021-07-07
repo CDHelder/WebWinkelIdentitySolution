@@ -63,9 +63,9 @@ namespace WebWinkelIdentity.Data.Repositories
             return products;
         }
 
-        public List<ProductDetails> GetAllStoreProductDetails(int storeid)
+        public List<ProductDetails> GetAllProductDetails(int productId, int storeid)
         {
-            var productdetails = _dbContext.StoreProducts.Where(sp => sp.StoreId == storeid).SelectMany(sp => sp.Product.ProductDetails)
+            var productdetails = _dbContext.StoreProducts.Where(sp => sp.StoreId == storeid && sp.ProductId == productId).SelectMany(sp => sp.Product.ProductDetails)
                 .Include(sp => sp.Product)
                 .ToList();
             return productdetails;
@@ -130,7 +130,7 @@ namespace WebWinkelIdentity.Data.Repositories
                 {
                     _dbContext.Add(ProductDetail);
                 }
-                if (SaveChanges() == true)
+                if (SaveChangesAtleastOne() == true)
                 {
                     return product;
                 }
@@ -186,7 +186,7 @@ namespace WebWinkelIdentity.Data.Repositories
             }
 
             _dbContext.Products.Attach(product).State = EntityState.Modified;
-            if (SaveChanges() == true)
+            if (SaveChangesAtleastOne() == true)
             {
                 return product;
             }
@@ -194,7 +194,7 @@ namespace WebWinkelIdentity.Data.Repositories
             return null;
         }
 
-        public bool SaveChanges()
+        public bool SaveChangesAtleastOne()
         {
             if(_dbContext.SaveChanges() > 0)
             {
@@ -209,12 +209,30 @@ namespace WebWinkelIdentity.Data.Repositories
             if(product != null)
             {
                 _dbContext.Products.Remove(product);
-                if (SaveChanges() == true)
+                if (SaveChangesAtleastOne() == true)
                 {
                     return true;
                 }
             }
             return false;
+        }
+
+        public int AddAllProductDetails(List<ProductDetails> productDetails, int productId)
+        {
+            foreach (var productDetail in productDetails)
+            {
+                if (productDetail != null && productId > 0 && productDetail.ProductId == productId)
+                {
+                    _dbContext.ProductDetails.Add(productDetail);
+                }
+            }
+
+            if (SaveChangesAtleastOne() == true)
+            {
+                return productId;
+            }
+
+            return 0;
         }
     }
 }
