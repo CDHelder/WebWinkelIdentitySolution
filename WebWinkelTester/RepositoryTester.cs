@@ -1,15 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Moq;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebWinkelIdentity.Data;
-using WebWinkelIdentity.Data.Enitities.StoreEntities;
-using WebWinkelIdentity.Data.Repositories;
-using WebWinkelIdentity.Data.Repositories.Interfaces;
-using WebWinkelIdentity.Data.StoreEntities;
+using WebWinkelIdentity.Core;
 using Xunit;
 
 namespace WebWinkelTester

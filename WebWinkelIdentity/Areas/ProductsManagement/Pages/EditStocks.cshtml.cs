@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using WebWinkelIdentity.Data;
-using WebWinkelIdentity.Data.Enitities.StoreEntities;
-using WebWinkelIdentity.Data.Repositories.Interfaces;
-using WebWinkelIdentity.Data.StoreEntities;
+using WebWinkelIdentity.Core;
+using WebWinkelIdentity.Data.Service.Interfaces;
 
 namespace WebWinkelIdentity.Areas.ProductsManagement.Pages
 {
