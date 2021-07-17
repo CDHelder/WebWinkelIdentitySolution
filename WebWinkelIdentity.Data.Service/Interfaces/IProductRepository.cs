@@ -17,17 +17,10 @@ namespace WebWinkelIdentity.Data.Service.Interfaces
         public List<Product> GetProductsByBrand(int brandId);
         public List<Product> GetProductsByCategory(int categoryId);
 
-        public ProductDetails GetProductDetails(int productId);
-        public List<ProductDetails> GetAllProductDetails();
-        public List<ProductDetails> GetAllProductDetails(int productId);
-        public List<ProductDetails> GetAllProductDetails(int productId, int storeid);
-
         public Product AddProduct(Product product);
         public Product UpdateProduct(Product product);
         public bool DeleteProduct(int id);
         public bool SaveChangesAtleastOne();
-
-        public int AddAllProductDetails(List<ProductDetails> productDetails, int productId);
 
         public List<Brand> GetAllBrands();
         public List<Category> GetAllCategories();

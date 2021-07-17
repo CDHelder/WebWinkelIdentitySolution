@@ -42,25 +42,5 @@ namespace WebWinkelTester
         {
             throw new NotImplementedException();
         }
-
-        public ProductDetails GetProductDetails(int productId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<ProductDetails> GetAllProductDetails()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<ProductDetails> GetAllProductDetails(int productId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<ProductDetails> GetAllStoreProductDetails(int storeid)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

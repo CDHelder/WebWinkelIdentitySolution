@@ -19,7 +19,6 @@ namespace WebWinkelIdentity.Core
         public string Size { get; set; }
         public int AmountInStock { get; set; }
         public string Description { get; set; }
-        public List<ProductDetails> ProductDetails { get; set; }
-        public List<StoreProduct> StoreProducts { get; set; }
+        public int StoreId { get; set; }
     }
 }

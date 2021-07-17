@@ -17,7 +17,6 @@ namespace WebWinkelIdentity.Areas.ProductsManagement.Pages
         }
 
         [BindProperty]
-        public List<ProductDetails> ProductDetails { get; set; }
         public Product Product { get; set; }
 
         public IActionResult OnGetAsync(int id)
@@ -28,9 +27,8 @@ namespace WebWinkelIdentity.Areas.ProductsManagement.Pages
             }
 
             Product = _productRepository.GetProduct(id);
-            ProductDetails = _productRepository.GetAllProductDetails(id);
 
-            if (ProductDetails == null)
+            if (Product == null)
             {
                 return NotFound();
             }
@@ -47,12 +45,12 @@ namespace WebWinkelIdentity.Areas.ProductsManagement.Pages
                 return Page();
             }
 
-#pragma warning disable CS0472 // The result of the expression is always the same since a value of this type is never equal to 'null'
-            if (_productRepository.AddAllProductDetails(ProductDetails, Product.Id) != 0)
-#pragma warning restore CS0472 // The result of the expression is always the same since a value of this type is never equal to 'null'
-            {
-                return RedirectToPage($"./Details/{Product.Id}");
-            }
+//#pragma warning disable CS0472 // The result of the expression is always the same since a value of this type is never equal to 'null'
+//            if (_productRepository.AddProduct(Product) != 0)
+//#pragma warning restore CS0472 // The result of the expression is always the same since a value of this type is never equal to 'null'
+//            {
+//                return RedirectToPage($"./Details/{Product.Id}");
+//            }
 
             return Page();
         }

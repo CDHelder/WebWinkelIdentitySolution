@@ -470,7 +470,6 @@ namespace WebWinkelIdentity.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CustomerId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsDelivered")
@@ -482,16 +481,7 @@ namespace WebWinkelIdentity.Data.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Orders");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AddressId = 2,
-                            CustomerId = "52a5d716-a649-4476-b316-108d96c56112",
-                            IsDelivered = false
-                        });
+                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("WebWinkelIdentity.Core.OrderProduct", b =>
@@ -516,37 +506,7 @@ namespace WebWinkelIdentity.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderProducts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            OrderId = 1,
-                            ProductId = 1,
-                            Quantity = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            OrderId = 1,
-                            ProductId = 2,
-                            Quantity = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            OrderId = 1,
-                            ProductId = 3,
-                            Quantity = 1
-                        },
-                        new
-                        {
-                            Id = 4,
-                            OrderId = 1,
-                            ProductId = 4,
-                            Quantity = 1
-                        });
+                    b.ToTable("OrderProduct");
                 });
 
             modelBuilder.Entity("WebWinkelIdentity.Core.Product", b =>
@@ -583,11 +543,16 @@ namespace WebWinkelIdentity.Data.Migrations
                     b.Property<string>("Size")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("StoreId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BrandId");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("StoreId");
 
                     b.ToTable("Products");
 
@@ -603,7 +568,8 @@ namespace WebWinkelIdentity.Data.Migrations
                             Fabric = "100% Cotton",
                             Name = "Gucci T-shirt",
                             Price = 39.95m,
-                            Size = "S"
+                            Size = "S",
+                            StoreId = 1
                         },
                         new
                         {
@@ -616,7 +582,8 @@ namespace WebWinkelIdentity.Data.Migrations
                             Fabric = "100% Cotton",
                             Name = "Gucci T-shirt",
                             Price = 39.95m,
-                            Size = "M"
+                            Size = "M",
+                            StoreId = 1
                         },
                         new
                         {
@@ -629,7 +596,8 @@ namespace WebWinkelIdentity.Data.Migrations
                             Fabric = "100% Cotton",
                             Name = "Gucci T-shirt",
                             Price = 39.95m,
-                            Size = "L"
+                            Size = "L",
+                            StoreId = 1
                         },
                         new
                         {
@@ -642,199 +610,176 @@ namespace WebWinkelIdentity.Data.Migrations
                             Fabric = "100% Cotton",
                             Name = "Gucci T-shirt",
                             Price = 39.95m,
-                            Size = "XL"
+                            Size = "XL",
+                            StoreId = 1
                         },
                         new
                         {
                             Id = 5,
-                            AmountInStock = 0,
+                            AmountInStock = 2,
                             BrandId = 1,
                             CategoryId = 1,
                             Color = "Light-Blue",
                             Description = "Lichte broek met gucci logo",
                             Fabric = "100% Cotton",
                             Name = "Gucci Broek",
-                            Price = 59.95m
+                            Price = 59.95m,
+                            Size = "S",
+                            StoreId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AmountInStock = 2,
+                            BrandId = 1,
+                            CategoryId = 1,
+                            Color = "Light-Blue",
+                            Description = "Lichte broek met gucci logo",
+                            Fabric = "100% Cotton",
+                            Name = "Gucci Broek",
+                            Price = 59.95m,
+                            Size = "M",
+                            StoreId = 1
+                        },
+                        new
+                        {
+                            Id = 7,
+                            AmountInStock = 2,
+                            BrandId = 1,
+                            CategoryId = 1,
+                            Color = "Light-Blue",
+                            Description = "Lichte broek met gucci logo",
+                            Fabric = "100% Cotton",
+                            Name = "Gucci Broek",
+                            Price = 59.95m,
+                            Size = "L",
+                            StoreId = 1
+                        },
+                        new
+                        {
+                            Id = 8,
+                            AmountInStock = 1,
+                            BrandId = 1,
+                            CategoryId = 1,
+                            Color = "Light-Blue",
+                            Description = "Lichte broek met gucci logo",
+                            Fabric = "100% Cotton",
+                            Name = "Gucci Broek",
+                            Price = 59.95m,
+                            Size = "XL",
+                            StoreId = 1
                         },
                         new
                         {
                             Id = 9,
-                            AmountInStock = 0,
+                            AmountInStock = 2,
                             BrandId = 2,
                             CategoryId = 2,
                             Color = "Light-Yellow",
                             Description = "Licht shirt met versace logo",
                             Fabric = "100% Cotton",
                             Name = "Versace T-shirt",
-                            Price = 45.95m
+                            Price = 45.95m,
+                            Size = "S",
+                            StoreId = 1
+                        },
+                        new
+                        {
+                            Id = 10,
+                            AmountInStock = 2,
+                            BrandId = 2,
+                            CategoryId = 2,
+                            Color = "Light-Yellow",
+                            Description = "Licht shirt met versace logo",
+                            Fabric = "100% Cotton",
+                            Name = "Versace T-shirt",
+                            Price = 45.95m,
+                            Size = "M",
+                            StoreId = 1
+                        },
+                        new
+                        {
+                            Id = 11,
+                            AmountInStock = 2,
+                            BrandId = 2,
+                            CategoryId = 2,
+                            Color = "Light-Yellow",
+                            Description = "Licht shirt met versace logo",
+                            Fabric = "100% Cotton",
+                            Name = "Versace T-shirt",
+                            Price = 45.95m,
+                            Size = "L",
+                            StoreId = 1
+                        },
+                        new
+                        {
+                            Id = 12,
+                            AmountInStock = 1,
+                            BrandId = 2,
+                            CategoryId = 2,
+                            Color = "Light-Yellow",
+                            Description = "Licht shirt met versace logo",
+                            Fabric = "100% Cotton",
+                            Name = "Versace T-shirt",
+                            Price = 45.95m,
+                            Size = "XL",
+                            StoreId = 1
                         },
                         new
                         {
                             Id = 13,
-                            AmountInStock = 0,
+                            AmountInStock = 2,
                             BrandId = 2,
                             CategoryId = 1,
                             Color = "Dark-Blue",
                             Description = "Donkere broek met versace logo",
                             Fabric = "100% Cotton",
                             Name = "Versace Broek",
-                            Price = 69.95m
-                        });
-                });
-
-            modelBuilder.Entity("WebWinkelIdentity.Core.ProductDetails", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AmountInStock")
-                        .HasColumnType("int");
-
-                    b.Property<string>("InternationalSizingType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Size")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductDetails");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AmountInStock = 2,
-                            InternationalSizingType = "EU",
-                            ProductId = 1,
-                            Size = "S"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            AmountInStock = 2,
-                            InternationalSizingType = "EU",
-                            ProductId = 1,
-                            Size = "M"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            AmountInStock = 2,
-                            InternationalSizingType = "EU",
-                            ProductId = 1,
-                            Size = "L"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            AmountInStock = 1,
-                            InternationalSizingType = "EU",
-                            ProductId = 1,
-                            Size = "XL"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            AmountInStock = 2,
-                            InternationalSizingType = "EU",
-                            ProductId = 2,
-                            Size = "S"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            AmountInStock = 2,
-                            InternationalSizingType = "EU",
-                            ProductId = 2,
-                            Size = "M"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            AmountInStock = 2,
-                            InternationalSizingType = "EU",
-                            ProductId = 2,
-                            Size = "L"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            AmountInStock = 1,
-                            InternationalSizingType = "EU",
-                            ProductId = 2,
-                            Size = "XL"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            AmountInStock = 2,
-                            InternationalSizingType = "EU",
-                            ProductId = 3,
-                            Size = "S"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            AmountInStock = 2,
-                            InternationalSizingType = "EU",
-                            ProductId = 3,
-                            Size = "M"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            AmountInStock = 2,
-                            InternationalSizingType = "EU",
-                            ProductId = 3,
-                            Size = "L"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            AmountInStock = 1,
-                            InternationalSizingType = "EU",
-                            ProductId = 3,
-                            Size = "XL"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            AmountInStock = 2,
-                            InternationalSizingType = "EU",
-                            ProductId = 4,
-                            Size = "S"
+                            Price = 69.95m,
+                            Size = "S",
+                            StoreId = 1
                         },
                         new
                         {
                             Id = 14,
                             AmountInStock = 2,
-                            InternationalSizingType = "EU",
-                            ProductId = 4,
-                            Size = "M"
+                            BrandId = 2,
+                            CategoryId = 1,
+                            Color = "Dark-Blue",
+                            Description = "Donkere broek met versace logo",
+                            Fabric = "100% Cotton",
+                            Name = "Versace Broek",
+                            Price = 69.95m,
+                            Size = "M",
+                            StoreId = 1
                         },
                         new
                         {
                             Id = 15,
                             AmountInStock = 2,
-                            InternationalSizingType = "EU",
-                            ProductId = 4,
-                            Size = "L"
+                            BrandId = 2,
+                            CategoryId = 1,
+                            Color = "Dark-Blue",
+                            Description = "Donkere broek met versace logo",
+                            Fabric = "100% Cotton",
+                            Name = "Versace Broek",
+                            Price = 69.95m,
+                            Size = "L",
+                            StoreId = 1
                         },
                         new
                         {
                             Id = 16,
                             AmountInStock = 1,
-                            InternationalSizingType = "EU",
-                            ProductId = 4,
-                            Size = "XL"
+                            BrandId = 2,
+                            CategoryId = 1,
+                            Color = "Dark-Blue",
+                            Description = "Donkere broek met versace logo",
+                            Fabric = "100% Cotton",
+                            Name = "Versace Broek",
+                            Price = 69.95m,
+                            Size = "XL",
+                            StoreId = 1
                         });
                 });
 
@@ -896,43 +841,6 @@ namespace WebWinkelIdentity.Data.Migrations
                         {
                             Id = 1,
                             EmployeeId = "7036d951-7cc8-488f-b95b-10c2e96c31c9",
-                            StoreId = 1
-                        });
-                });
-
-            modelBuilder.Entity("WebWinkelIdentity.Core.StoreProduct", b =>
-                {
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StoreId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProductId", "StoreId");
-
-                    b.HasIndex("StoreId");
-
-                    b.ToTable("StoreProducts");
-
-                    b.HasData(
-                        new
-                        {
-                            ProductId = 1,
-                            StoreId = 1
-                        },
-                        new
-                        {
-                            ProductId = 2,
-                            StoreId = 1
-                        },
-                        new
-                        {
-                            ProductId = 3,
-                            StoreId = 1
-                        },
-                        new
-                        {
-                            ProductId = 4,
                             StoreId = 1
                         });
                 });
@@ -1003,12 +911,12 @@ namespace WebWinkelIdentity.Data.Migrations
                         {
                             Id = "52a5d716-a649-4476-b316-108d96c56112",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f1c06b6d-1e3b-49bc-90ae-ebeeb20ac404",
+                            ConcurrencyStamp = "60abb55e-061f-4b76-a66c-d485d91a7177",
                             Email = "Jaap@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ac3ec3db-31d5-43a6-b7fa-f26841154c59",
+                            SecurityStamp = "ffb9e782-c07e-41b0-afd9-0d123f594bac",
                             TwoFactorEnabled = false,
                             UserName = "Jaap123",
                             Name = "Jaap"
@@ -1042,11 +950,11 @@ namespace WebWinkelIdentity.Data.Migrations
                         {
                             Id = "7036d951-7cc8-488f-b95b-10c2e96c31c9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "eab7147d-e62e-49f0-b65c-837c2638f385",
+                            ConcurrencyStamp = "c08a5879-9f56-4b61-b001-17532ef6cc72",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "dbb134ac-44eb-44d0-a0d3-b6431d590482",
+                            SecurityStamp = "979f5291-461d-46e0-b1d6-8f99eb67741c",
                             TwoFactorEnabled = false,
                             AddressId = 3,
                             CurrentlyEmployed = false,
@@ -1147,9 +1055,7 @@ namespace WebWinkelIdentity.Data.Migrations
 
                     b.HasOne("WebWinkelIdentity.Core.Customer", "Customer")
                         .WithMany("Orders")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustomerId");
 
                     b.Navigation("Address");
 
@@ -1187,20 +1093,15 @@ namespace WebWinkelIdentity.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Brand");
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("WebWinkelIdentity.Core.ProductDetails", b =>
-                {
-                    b.HasOne("WebWinkelIdentity.Core.Product", "Product")
-                        .WithMany("ProductDetails")
-                        .HasForeignKey("ProductId")
+                    b.HasOne("WebWinkelIdentity.Core.Store", null)
+                        .WithMany("Products")
+                        .HasForeignKey("StoreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Product");
+                    b.Navigation("Brand");
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("WebWinkelIdentity.Core.Store", b =>
@@ -1235,25 +1136,6 @@ namespace WebWinkelIdentity.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Employee");
-
-                    b.Navigation("Store");
-                });
-
-            modelBuilder.Entity("WebWinkelIdentity.Core.StoreProduct", b =>
-                {
-                    b.HasOne("WebWinkelIdentity.Core.Product", "Product")
-                        .WithMany("StoreProducts")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebWinkelIdentity.Core.Store", "Store")
-                        .WithMany("StoreProducts")
-                        .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
 
                     b.Navigation("Store");
                 });
@@ -1299,18 +1181,11 @@ namespace WebWinkelIdentity.Data.Migrations
                     b.Navigation("OrderProducts");
                 });
 
-            modelBuilder.Entity("WebWinkelIdentity.Core.Product", b =>
-                {
-                    b.Navigation("ProductDetails");
-
-                    b.Navigation("StoreProducts");
-                });
-
             modelBuilder.Entity("WebWinkelIdentity.Core.Store", b =>
                 {
-                    b.Navigation("StoreEmployees");
+                    b.Navigation("Products");
 
-                    b.Navigation("StoreProducts");
+                    b.Navigation("StoreEmployees");
                 });
 
             modelBuilder.Entity("WebWinkelIdentity.Core.Supplier", b =>

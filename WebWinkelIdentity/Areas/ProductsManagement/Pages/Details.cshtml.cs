@@ -17,7 +17,6 @@ namespace WebWinkelIdentity.Areas.ProductsManagement.Pages
         }
 
         public Product Product { get; set; }
-        public List<ProductDetails> ProductDetails { get; set; }
 
         public IActionResult OnGetAsync(int id)
         {
@@ -27,7 +26,6 @@ namespace WebWinkelIdentity.Areas.ProductsManagement.Pages
             }
 
             Product = _productRepository.GetProduct(id);
-            ProductDetails = _productRepository.GetAllProductDetails(Product.Id);
 
             if (Product == null)
             {

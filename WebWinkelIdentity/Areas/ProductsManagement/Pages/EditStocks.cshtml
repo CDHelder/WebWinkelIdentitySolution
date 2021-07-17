@@ -50,11 +50,12 @@
     </dl>
 </div>
 <hr />
-<div class="row">
+
+@*<div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Product.Id" />
+            <input type="hidden" asp-for="Products.Id" />
             @foreach (var productDetail in Model.ProductDetails)
             {
                 <div class="form-group">
@@ -73,7 +74,7 @@
             </div>
         </form>
     </div>
-</div>
+</div>*@
 
 <div>
     <a asp-page="./Index">Back to List</a>

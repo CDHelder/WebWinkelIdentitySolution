@@ -170,30 +170,30 @@ namespace WebWinkelIdentity.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Orders",
+                name: "Order",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CustomerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     AddressId = table.Column<int>(type: "int", nullable: false),
                     IsDelivered = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.PrimaryKey("PK_Order", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Orders_Addresses_AddressId",
+                        name: "FK_Order_Addresses_AddressId",
                         column: x => x.AddressId,
                         principalTable: "Addresses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Orders_Customers_CustomerId",
+                        name: "FK_Order_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -234,7 +234,10 @@ namespace WebWinkelIdentity.Data.Migrations
                     Fabric = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BrandId = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Size = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AmountInStock = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StoreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -249,6 +252,12 @@ namespace WebWinkelIdentity.Data.Migrations
                         name: "FK_Products_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Products_Stores_StoreId",
+                        column: x => x.StoreId,
+                        principalTable: "Stores",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -280,7 +289,7 @@ namespace WebWinkelIdentity.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderProducts",
+                name: "OrderProduct",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -291,46 +300,17 @@ namespace WebWinkelIdentity.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderProducts", x => x.Id);
+                    table.PrimaryKey("PK_OrderProduct", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderProducts_Orders_OrderId",
+                        name: "FK_OrderProduct_Order_OrderId",
                         column: x => x.OrderId,
-                        principalTable: "Orders",
+                        principalTable: "Order",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_OrderProducts_Products_ProductId",
+                        name: "FK_OrderProduct_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProductDetails",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    StoreId = table.Column<int>(type: "int", nullable: false),
-                    InternationalSizingType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Size = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AmountInStock = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductDetails", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ProductDetails_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProductDetails_Stores_StoreId",
-                        column: x => x.StoreId,
-                        principalTable: "Stores",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -349,8 +329,8 @@ namespace WebWinkelIdentity.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "52a5d716-a649-4476-b316-108d96c56112", 0, "3f9af281-baa5-47f2-b9fc-be3c8acc7fd5", "Jaap@gmail.com", false, false, null, null, null, null, null, false, "27aedd85-bb9f-4e42-86a9-727ee58e0677", false, "Jaap123" },
-                    { "7036d951-7cc8-488f-b95b-10c2e96c31c9", 0, "5a588f05-5846-4074-bd37-157067e8b38c", null, false, false, null, null, null, null, null, false, "e944a957-6e08-45db-9b1d-c7781fb6d37f", false, null }
+                    { "52a5d716-a649-4476-b316-108d96c56112", 0, "60abb55e-061f-4b76-a66c-d485d91a7177", "Jaap@gmail.com", false, false, null, null, null, null, null, false, "ffb9e782-c07e-41b0-afd9-0d123f594bac", false, "Jaap123" },
+                    { "7036d951-7cc8-488f-b95b-10c2e96c31c9", 0, "c08a5879-9f56-4b61-b001-17532ef6cc72", null, false, false, null, null, null, null, null, false, "979f5291-461d-46e0-b1d6-8f99eb67741c", false, null }
                 });
 
             migrationBuilder.InsertData(
@@ -422,58 +402,31 @@ namespace WebWinkelIdentity.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "BrandId", "CategoryId", "Color", "Description", "Fabric", "Name", "Price" },
+                columns: new[] { "Id", "AmountInStock", "BrandId", "CategoryId", "Color", "Description", "Fabric", "Name", "Price", "Size", "StoreId" },
                 values: new object[,]
                 {
-                    { 1, 1, 2, null, "Witte kleur met gucci logo", null, "Gucci T-shirt", 39.95m },
-                    { 2, 1, 1, null, "Lichte broek met gucci logo", null, "Gucci Broek", 59.95m },
-                    { 3, 2, 2, null, "Licht shirt met versace logo", null, "Versace T-shirt", 45.95m },
-                    { 4, 2, 1, null, "Donkere broek met versace logo", null, "Versace Broek", 69.95m }
+                    { 15, 2, 2, 1, "Dark-Blue", "Donkere broek met versace logo", "100% Cotton", "Versace Broek", 69.95m, "L", 1 },
+                    { 14, 2, 2, 1, "Dark-Blue", "Donkere broek met versace logo", "100% Cotton", "Versace Broek", 69.95m, "M", 1 },
+                    { 13, 2, 2, 1, "Dark-Blue", "Donkere broek met versace logo", "100% Cotton", "Versace Broek", 69.95m, "S", 1 },
+                    { 12, 1, 2, 2, "Light-Yellow", "Licht shirt met versace logo", "100% Cotton", "Versace T-shirt", 45.95m, "XL", 1 },
+                    { 11, 2, 2, 2, "Light-Yellow", "Licht shirt met versace logo", "100% Cotton", "Versace T-shirt", 45.95m, "L", 1 },
+                    { 10, 2, 2, 2, "Light-Yellow", "Licht shirt met versace logo", "100% Cotton", "Versace T-shirt", 45.95m, "M", 1 },
+                    { 9, 2, 2, 2, "Light-Yellow", "Licht shirt met versace logo", "100% Cotton", "Versace T-shirt", 45.95m, "S", 1 },
+                    { 8, 1, 1, 1, "Light-Blue", "Lichte broek met gucci logo", "100% Cotton", "Gucci Broek", 59.95m, "XL", 1 },
+                    { 7, 2, 1, 1, "Light-Blue", "Lichte broek met gucci logo", "100% Cotton", "Gucci Broek", 59.95m, "L", 1 },
+                    { 6, 2, 1, 1, "Light-Blue", "Lichte broek met gucci logo", "100% Cotton", "Gucci Broek", 59.95m, "M", 1 },
+                    { 5, 2, 1, 1, "Light-Blue", "Lichte broek met gucci logo", "100% Cotton", "Gucci Broek", 59.95m, "S", 1 },
+                    { 4, 1, 1, 2, "White", "Witte kleur met gucci logo", "100% Cotton", "Gucci T-shirt", 39.95m, "XL", 1 },
+                    { 3, 2, 1, 2, "White", "Witte kleur met gucci logo", "100% Cotton", "Gucci T-shirt", 39.95m, "L", 1 },
+                    { 2, 2, 1, 2, "White", "Witte kleur met gucci logo", "100% Cotton", "Gucci T-shirt", 39.95m, "M", 1 },
+                    { 1, 2, 1, 2, "White", "Witte kleur met gucci logo", "100% Cotton", "Gucci T-shirt", 39.95m, "S", 1 },
+                    { 16, 1, 2, 1, "Dark-Blue", "Donkere broek met versace logo", "100% Cotton", "Versace Broek", 69.95m, "XL", 1 }
                 });
 
             migrationBuilder.InsertData(
                 table: "StoreEmployees",
                 columns: new[] { "Id", "EmployeeId", "StoreId" },
                 values: new object[] { 1, "7036d951-7cc8-488f-b95b-10c2e96c31c9", 1 });
-
-            migrationBuilder.InsertData(
-                table: "Orders",
-                columns: new[] { "Id", "AddressId", "CustomerId", "IsDelivered" },
-                values: new object[] { 1, 2, "52a5d716-a649-4476-b316-108d96c56112", false });
-
-            migrationBuilder.InsertData(
-                table: "ProductDetails",
-                columns: new[] { "Id", "AmountInStock", "InternationalSizingType", "ProductId", "Size", "StoreId" },
-                values: new object[,]
-                {
-                    { 14, 2, "EU", 4, "M", 1 },
-                    { 13, 2, "EU", 4, "S", 1 },
-                    { 12, 1, "EU", 3, "XL", 1 },
-                    { 11, 2, "EU", 3, "L", 1 },
-                    { 10, 2, "EU", 3, "M", 1 },
-                    { 9, 2, "EU", 3, "S", 1 },
-                    { 15, 2, "EU", 4, "L", 1 },
-                    { 8, 1, "EU", 2, "XL", 1 },
-                    { 6, 2, "EU", 2, "M", 1 },
-                    { 5, 2, "EU", 2, "S", 1 },
-                    { 4, 1, "EU", 1, "XL", 1 },
-                    { 3, 2, "EU", 1, "L", 1 },
-                    { 2, 2, "EU", 1, "M", 1 },
-                    { 1, 2, "EU", 1, "S", 1 },
-                    { 7, 2, "EU", 2, "L", 1 },
-                    { 16, 1, "EU", 4, "XL", 1 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "OrderProducts",
-                columns: new[] { "Id", "OrderId", "ProductId", "Quantity" },
-                values: new object[,]
-                {
-                    { 1, 1, 1, 1 },
-                    { 2, 1, 2, 1 },
-                    { 3, 1, 3, 1 },
-                    { 4, 1, 4, 1 }
-                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Addresses_CustomerId",
@@ -503,34 +456,24 @@ namespace WebWinkelIdentity.Data.Migrations
                 filter: "[AddressId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderProducts_OrderId",
-                table: "OrderProducts",
-                column: "OrderId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrderProducts_ProductId",
-                table: "OrderProducts",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orders_AddressId",
-                table: "Orders",
+                name: "IX_Order_AddressId",
+                table: "Order",
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_CustomerId",
-                table: "Orders",
+                name: "IX_Order_CustomerId",
+                table: "Order",
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductDetails_ProductId",
-                table: "ProductDetails",
-                column: "ProductId");
+                name: "IX_OrderProduct_OrderId",
+                table: "OrderProduct",
+                column: "OrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductDetails_StoreId",
-                table: "ProductDetails",
-                column: "StoreId");
+                name: "IX_OrderProduct_ProductId",
+                table: "OrderProduct",
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_BrandId",
@@ -541,6 +484,11 @@ namespace WebWinkelIdentity.Data.Migrations
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_StoreId",
+                table: "Products",
+                column: "StoreId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StoreEmployees_EmployeeId",
@@ -571,16 +519,13 @@ namespace WebWinkelIdentity.Data.Migrations
                 name: "DayOpeningTimes");
 
             migrationBuilder.DropTable(
-                name: "OrderProducts");
-
-            migrationBuilder.DropTable(
-                name: "ProductDetails");
+                name: "OrderProduct");
 
             migrationBuilder.DropTable(
                 name: "StoreEmployees");
 
             migrationBuilder.DropTable(
-                name: "Orders");
+                name: "Order");
 
             migrationBuilder.DropTable(
                 name: "Products");
@@ -589,13 +534,13 @@ namespace WebWinkelIdentity.Data.Migrations
                 name: "Employees");
 
             migrationBuilder.DropTable(
-                name: "Stores");
-
-            migrationBuilder.DropTable(
                 name: "Brands");
 
             migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Stores");
 
             migrationBuilder.DropTable(
                 name: "Addresses");
@@ -612,12 +557,12 @@ namespace WebWinkelIdentity.Data.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
-                keyValue: "7036d951-7cc8-488f-b95b-10c2e96c31c9");
+                keyValue: "52a5d716-a649-4476-b316-108d96c56112");
 
             migrationBuilder.DeleteData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
-                keyValue: "52a5d716-a649-4476-b316-108d96c56112");
+                keyValue: "7036d951-7cc8-488f-b95b-10c2e96c31c9");
         }
     }
 }
